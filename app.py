@@ -10,11 +10,11 @@ import io
 # load the ML models and build them into a pipeline
 
 controlnet = ControlNetModel.from_pretrained(
-    "lllyasviel/sd-controlnet-scribble", torch_dtype=torch.float16
+    "lllyasviel/sd-controlnet-scribble", torch_dtype=torch.float32
 )
 
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
-    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, safety_checker=None, torch_dtype=torch.float16
+    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, safety_checker=None, torch_dtype=torch.float32
 )
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
