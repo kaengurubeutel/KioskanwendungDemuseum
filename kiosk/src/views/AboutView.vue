@@ -24,6 +24,8 @@ let save = () => {
   const { isEmpty, data } = signaturePad.value.saveSignature();
   console.log(isEmpty);
   console.log(data);
+  let response = eel.get_image(data);
+  console.log(response);
 }
 
 
@@ -33,22 +35,25 @@ let save = () => {
 <template>
    <div id="about">
         <VueSignaturePad
+          id="sig"
           width="500px"
           height="500px"
           ref="signaturePad"
-          :options="{ onBegin, onEnd }"
+          :options="{ onBegin, onEnd, backgroundColor: '#FFF', minWidth:1.3, maxWidth:3.3}"
         />
-
-        <div class="menubutton" @click="clear">
-          Löschen
-        </div>
-        <div class="menubutton" @click="undo" >
-          Zurück
-        </div>
-        <div class="menubutton" @click="save" > 
-          Abschicken
+   
+      <div id="menuwrapper">
+           <div class="menubutton" @click="clear">
+            Löschen
+          </div>
+          <div class="menubutton" @click="undo" >
+            Zurück
+          </div>
+          <div class="menubutton" @click="save" > 
+            Abschicken
         </div>
       </div>
+    </div>
 
       
 </template>
@@ -73,6 +78,18 @@ let save = () => {
 
 .menubutton:active{
   box-shadow: 0px 0px 10px 0px rgba(227, 227, 227, 0.25);
+}
+
+#menuwrapper{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+#sig{
+  background-color: #fff;
+  border: 1px solid #fff;
 }
 
 @media (min-width: 1024px) {

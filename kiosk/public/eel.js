@@ -16,6 +16,10 @@ class Eel {
     const greeting = `Hello ${string} (js)`;
     return (func) => func(greeting);
   }
+  get_image(image){
+    const imagedata = `imagedata: ${image}`;
+    return (func) => func(imagedata);
+  }
 }
 
 const eel = new Eel();
