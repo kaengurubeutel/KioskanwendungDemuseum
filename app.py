@@ -11,11 +11,11 @@ import io
 
 controlnet = ControlNetModel.from_pretrained(
     "lllyasviel/sd-controlnet-scribble", torch_dtype=torch.float32
-)
+).to('cpu')
 
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
-    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, safety_checker=None, torch_dtype=torch.float32
-)
+    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, safety_checker=None
+).to('cpu')
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
@@ -46,7 +46,7 @@ def get_greeting(string):
 def get_image(imageStr):
     #print (imageStr)
     img = decode_img(imageStr)
-    result = pipe("astronomical photo", img, num_inference_steps=20).images[0]
+    result = pipe("astronomical photo", img, num_inference_steps=5).images[0]
     result.show()
     return
 

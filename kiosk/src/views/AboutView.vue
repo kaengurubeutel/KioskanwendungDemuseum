@@ -1,66 +1,53 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 
-import { ref } from 'vue';
-
-const signaturePad = ref();
+const signaturePad = ref()
 
 let onBegin = () => {
-  console.log('=== Begin ===');
+  console.log('=== Begin ===')
 }
 
 let onEnd = () => {
-  console.log('=== End ===');
+  console.log('=== End ===')
 }
 
 let undo = () => {
-        signaturePad.value.undoSignature();
+  signaturePad.value.undoSignature()
 }
 
 let clear = () => {
-  signaturePad.value.clearSignature();
+  signaturePad.value.clearSignature()
 }
 
 let save = () => {
-  const { isEmpty, data } = signaturePad.value.saveSignature();
-  console.log(isEmpty);
-  console.log(data);
-  let response = eel.get_image(data);
-  console.log(response);
+  const { isEmpty, data } = signaturePad.value.saveSignature()
+  console.log(isEmpty)
+  console.log(data)
+  let response = eel.get_image(data)
+  console.log(response)
 }
-
-
 </script>
 
-
 <template>
-   <div id="about">
-        <VueSignaturePad
-          id="sig"
-          width="500px"
-          height="500px"
-          ref="signaturePad"
-          :options="{ onBegin, onEnd, backgroundColor: '#FFF', minWidth:1.3, maxWidth:3.3}"
-        />
-   
-      <div id="menuwrapper">
-           <div class="menubutton" @click="clear">
-            Löschen
-          </div>
-          <div class="menubutton" @click="undo" >
-            Zurück
-          </div>
-          <div class="menubutton" @click="save" > 
-            Abschicken
-        </div>
-      </div>
-    </div>
+  <div id="about">
+    <VueSignaturePad
+      id="sig"
+      width="500px"
+      height="500px"
+      ref="signaturePad"
+      :options="{ onBegin, onEnd, backgroundColor: '#FFF', minWidth: 1.3, maxWidth: 3.3 }"
+    />
 
-      
+    <div id="menuwrapper">
+      <div class="menubutton" @click="clear">Löschen</div>
+      <div class="menubutton" @click="undo">Zurück</div>
+      <div class="menubutton" @click="save">Abschicken</div>
+    </div>
+  </div>
 </template>
 
 <style>
-
-.menubutton{
+.menubutton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,22 +59,21 @@ let save = () => {
   border: 1px solid #fff;
 }
 
-.menubutton:hover{
-  background-color: rgba(248, 248, 248, 0.10);
+.menubutton:hover {
+  background-color: rgba(248, 248, 248, 0.1);
 }
 
-.menubutton:active{
+.menubutton:active {
   box-shadow: 0px 0px 10px 0px rgba(227, 227, 227, 0.25);
 }
 
-#menuwrapper{
+#menuwrapper {
   margin-top: 30px;
   display: flex;
   flex-direction: row;
-
 }
 
-#sig{
+#sig {
   background-color: #fff;
   border: 1px solid #fff;
 }
