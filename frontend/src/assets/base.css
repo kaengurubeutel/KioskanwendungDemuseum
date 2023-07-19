@@ -1,0 +1,59 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --background: #fefff9;
+  --black: #161617;
+  --orange: #ff8a1e;
+  --yellow: #ffc62a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-background);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  color: var(--black, #161617);
+  font-family: Baloo;
+  font-size: 6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 81.4%;
+}
+
+h2 {
+  color: var(--black, #161617);
+  font-family: Baloo;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130.9%;
+}
+
+h3 {
+  color: var(--black, #161617);
+  font-family: Futura PT;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+p {
+  color: var(--black, #161617);
+  font-family: Futura PT;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

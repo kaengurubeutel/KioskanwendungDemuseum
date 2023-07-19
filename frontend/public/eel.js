@@ -18,6 +18,7 @@ class Eel {
   }
   get_image(image){
     const imagedata = `imagedata: ${image}`;
+    console.log("Hello from eel placeholder");
     return (func) => func(imagedata);
   }
 }

@@ -5,17 +5,20 @@ from PIL import Image
 import numpy as np
 import torch
 import io
+from deep_translator import GoogleTranslator
+
+
 
 
 # load the ML models and build them into a pipeline
 
 controlnet = ControlNetModel.from_pretrained(
     "lllyasviel/sd-controlnet-scribble", torch_dtype=torch.float32
-).to('cpu')
+).to('cuda')
 
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
-    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, safety_checker=None
-).to('cpu')
+    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, 
+).to('cuda')
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
@@ -45,8 +48,13 @@ def get_greeting(string):
 @eel.expose
 def get_image(imageStr):
     #print (imageStr)
+    print("\n . \n . \n Gib einen Prompt ein: ")
+    prompt = str(input())
+    txttmp =GoogleTranslator(source='de', target='en').translate(prompt)
+    print(txttmp)
     img = decode_img(imageStr)
-    result = pipe("astronomical photo", img, num_inference_steps=5).images[0]
+    img = img.resize((750, 400))
+    result = pipe(txttmp, img, num_inference_steps=30, guidance_scale=15.0).images[0]
     result.show()
     return
 
