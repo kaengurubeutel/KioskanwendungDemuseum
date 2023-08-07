@@ -4,7 +4,7 @@ const props = defineProps(['text'])
 
 <template>
   <div id="buttonwrapper">
-    <p>{{ props.text }}</p>
+    <h3>{{ props.text }}</h3>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ const props = defineProps(['text'])
   background-color: var(--orange);
   border-radius: 0.8125rem;
   border: 2px solid var(--black, #161617);
-  background: var(--yellow, #ffc62a);
+  background: #8BB174;
   box-shadow: 2px 4px 0px 0px #161617;
 }
 

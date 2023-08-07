@@ -14,11 +14,11 @@ from deep_translator import GoogleTranslator
 
 controlnet = ControlNetModel.from_pretrained(
     "lllyasviel/sd-controlnet-scribble", torch_dtype=torch.float32
-).to('cuda')
+).to('cpu')
 
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5", controlnet=controlnet, 
-).to('cuda')
+).to('cpu')
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
@@ -54,7 +54,7 @@ def get_image(imageStr):
     print(txttmp)
     img = decode_img(imageStr)
     img = img.resize((750, 400))
-    result = pipe(txttmp, img, num_inference_steps=30, guidance_scale=15.0).images[0]
+    result = pipe(txttmp, img, num_inference_steps=3, guidance_scale=15.0).images[0]
     result.show()
     return
 

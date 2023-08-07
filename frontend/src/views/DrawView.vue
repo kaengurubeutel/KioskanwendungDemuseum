@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import CusButton from '@/components/CusButton.vue'
 const signaturePad = ref()
+import { useRouter } from 'vue-router';
+
+const route = useRouter()
 
 let onBegin = () => {
   console.log('=== Begin ===')
@@ -25,6 +28,8 @@ let save = () => {
   console.log(data)
   let response = eel.get_image(data)
   console.log(response)
+  route.push({path: 'prompt'})
+  
 }
 </script>
 
