@@ -15,6 +15,11 @@ const router = createRouter({
       path: '/prompt',
       name: 'prompt',
       component: () => import('../views/PromptView.vue')
+    },
+    {
+      path: '/result',
+      name: 'result',
+      component: () => import('../views/ResultView.vue')
     }
   ]
 })

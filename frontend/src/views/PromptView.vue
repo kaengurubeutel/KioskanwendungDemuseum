@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import SimpleKeyboard from '../components/SimpleKeyboard.vue'
 import { ref} from 'vue';
+import { useRouter } from 'vue-router';
 
+const route = useRouter()
 const text = ref("")
 
 const swButtons = ref([0, 0, 1, 0, 0]);
@@ -32,6 +34,10 @@ let buttonswap = (pos:Number) => {
   guidance_scale=scaleSteps[pos];
 }
 
+let next = () => {
+  //TODO
+  route.push("result");
+}
 </script>
 
 <template>
@@ -85,7 +91,7 @@ oder im Stil deiner Lieblingskünstler*in."
 
       </div>
 
-      <div id="buttn"><h3>Bild erstellen</h3></div>
+      <div id="buttn" @click="next"><h3>Bild erstellen</h3></div>
 
       <SimpleKeyboard @onChange="onChange" @onKeyPress="onKeyPress" :input="input" ></SimpleKeyboard>
     </div>
