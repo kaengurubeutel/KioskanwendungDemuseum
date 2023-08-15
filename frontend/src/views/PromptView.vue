@@ -11,21 +11,31 @@ const swButtons = ref([0, 0, 1, 0, 0]);
 const scaleSteps = [0, 3.5, 7, 14, 20]
 let guidance_scale = 7;
 
+// The `onChange` function is a callback function that is called when the value of the input changes.
+// It takes an `input` parameter and assigns its value to the `text` ref variable. It also logs the
+// value of `text` and the value at index 2 of the `swButtons` ref array to the console.
 let onChange = (input) => {
   text.value = input;
   console.log(text.value)
   console.log(swButtons.value[2])
 }
 
+// The `onKeyPress` function is a callback function that is called when a key is pressed on the
+// keyboard. It takes a `button` parameter, which represents the key that was pressed, and logs the
+// value of `button` to the console.
 let onKeyPress = (button:string) => {
    console.log("button", button);
 }
 
+// The `onInputChange` function is a callback function that is called when the value of the input field
+// changes. It takes an `input` parameter, which represents the event object of the input change event.
 let onInputChange = (input) => {
   text.value = input.target.value;
   console.log(text.value)
 }
 
+// The `buttonswap` function is a callback function that is called when a switch button is clicked. It
+// takes a `pos` parameter, which represents the position of the switch button that was clicked.
 let buttonswap = (pos:Number) => {
   for(let i = 0; i<5; i++){
     swButtons.value[i] = 0;
@@ -33,6 +43,7 @@ let buttonswap = (pos:Number) => {
   swButtons.value[pos] = 1;
   guidance_scale=scaleSteps[pos];
 }
+
 
 let next = () => {
   //TODO

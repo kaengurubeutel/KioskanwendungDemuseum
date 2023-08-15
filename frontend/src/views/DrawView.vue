@@ -6,23 +6,26 @@ import { useRouter } from 'vue-router';
 
 const route = useRouter()
 
-let onBegin = () => {
-  console.log('=== Begin ===')
-}
-
-let onEnd = () => {
-  console.log('=== End ===')
-}
-
+// The `undo` function is a callback function that is triggered when the "undo" button is clicked. It
+// calls the `undoSignature` method on the `signaturePad` ref object. This method is responsible for
+// undoing the last stroke or action made on the signature pad, effectively removing the most recent
+// signature.
 let undo = () => {
   signaturePad.value.undoSignature()
 }
 
+// The `clear` function is a callback function that is triggered when the "delete" button is clicked.
+// It calls the `clearSignature` method on the `signaturePad` ref object, which clears the signature on
+// the signature pad.
 let clear = () => {
   signaturePad.value.clearSignature()
 }
 
+
+// The `save` function is a callback function that is triggered when the "send" button is clicked.
 let save = () => {
+
+  //TODO
   const { isEmpty, data } = signaturePad.value.saveSignature()
   console.log(isEmpty)
   console.log(data)
@@ -86,6 +89,7 @@ let save = () => {
   justify-content: center;
   gap: 70px;
 }
+
 main {
   position: absolute;
   width: 100vw;
