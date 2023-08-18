@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import SimpleKeyboard from '../components/SimpleKeyboard.vue'
-import { ref} from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { imagestore } from '@/stores/imagestore'
 
+const imgStore = imagestore();
 const route = useRouter()
-const text = ref("")
+const text = ref('')
 
-const swButtons = ref([0, 0, 1, 0, 0]);
+const swButtons = ref([0, 0, 1, 0, 0])
 
 const scaleSteps = [0, 3.5, 7, 14, 20]
-let guidance_scale = 7;
+let guidance_scale = 7
 
 // The `onChange` function is a callback function that is called when the value of the input changes.
 // It takes an `input` parameter and assigns its value to the `text` ref variable. It also logs the
 // value of `text` and the value at index 2 of the `swButtons` ref array to the console.
 let onChange = (input) => {
-  text.value = input;
+  text.value = input
   console.log(text.value)
   console.log(swButtons.value[2])
 }
@@ -23,31 +25,37 @@ let onChange = (input) => {
 // The `onKeyPress` function is a callback function that is called when a key is pressed on the
 // keyboard. It takes a `button` parameter, which represents the key that was pressed, and logs the
 // value of `button` to the console.
-let onKeyPress = (button:string) => {
-   console.log("button", button);
+let onKeyPress = (button: string) => {
+  console.log('button', button)
 }
 
 // The `onInputChange` function is a callback function that is called when the value of the input field
 // changes. It takes an `input` parameter, which represents the event object of the input change event.
 let onInputChange = (input) => {
-  text.value = input.target.value;
+  text.value = input.target.value
   console.log(text.value)
 }
 
 // The `buttonswap` function is a callback function that is called when a switch button is clicked. It
 // takes a `pos` parameter, which represents the position of the switch button that was clicked.
-let buttonswap = (pos:Number) => {
-  for(let i = 0; i<5; i++){
-    swButtons.value[i] = 0;
+let buttonswap = (pos: Number) => {
+  for (let i = 0; i < 5; i++) {
+    swButtons.value[i] = 0
   }
-  swButtons.value[pos] = 1;
-  guidance_scale=scaleSteps[pos];
+  swButtons.value[pos] = 1
+  guidance_scale = scaleSteps[pos]
 }
 
-
 let next = () => {
-  //TODO
-  route.push("result");
+  let data:Object = {
+      "prompt": text.value,
+      "guidance_scale": guidance_scale
+  }
+ 
+  console.log(imgStore.scribble)
+  imgStore.promptdata = Object.create(data)
+  console.log(imgStore.promptdata)
+  route.push('result')
 }
 </script>
 
@@ -56,36 +64,33 @@ let next = () => {
     <div id="content">
       <div id="header">
         <div>
-          <img>
+          <img />
         </div>
         <h2>Was hast du gemalt?</h2>
-        
       </div>
 
       <div id="menu">
-
         <div id="settings">
-          <div><h3>Genauigkeit</h3>
+          <div>
+            <h3>Genauigkeit</h3>
             <p>Wie sehr soll sich die KI an deine Zeichnung halten?</p>
             <div id="switch">
               <div class="swwrp">
-                <div class="swbtn" :class="{ active: swButtons[0] }" @click="buttonswap(0)" ></div>
+                <div class="swbtn" :class="{ active: swButtons[0] }" @click="buttonswap(0)"></div>
                 <p>ungenau</p>
               </div>
               <div class="swbtn" :class="{ active: swButtons[1] }" @click="buttonswap(1)"></div>
               <div class="swwrp">
-                <div class="swbtn" :class="{active : swButtons[2]}" @click="buttonswap(2)"></div>
+                <div class="swbtn" :class="{ active: swButtons[2] }" @click="buttonswap(2)"></div>
                 <p>Standart</p>
               </div>
-              <div class="swbtn" :class="{ active: swButtons[3] }" @click="buttonswap(3)" ></div>
+              <div class="swbtn" :class="{ active: swButtons[3] }" @click="buttonswap(3)"></div>
               <div class="swwrp">
-                <div class="swbtn" :class="{ active: swButtons[4] }" @click="buttonswap(4)" ></div>
+                <div class="swbtn" :class="{ active: swButtons[4] }" @click="buttonswap(4)"></div>
                 <p>genau</p>
               </div>
             </div>
-          
           </div>
-          
 
           <textarea
             v-model="text"
@@ -94,20 +99,15 @@ Du kannst zusätzlich angeben, ob es z.B. in 3D dargestellt werden soll
 oder im Stil deiner Lieblingskünstler*in."
             id="text"
           ></textarea>
-
-
         </div>
 
         <img src="" alt="" width="552px" height="333px" id="scribble" />
-
       </div>
 
       <div id="buttn" @click="next"><h3>Bild erstellen</h3></div>
 
-      <SimpleKeyboard @onChange="onChange" @onKeyPress="onKeyPress" :input="input" ></SimpleKeyboard>
+      <SimpleKeyboard @onChange="onChange" @onKeyPress="onKeyPress" :input="input"></SimpleKeyboard>
     </div>
-
-
   </div>
 </template>
 
@@ -123,20 +123,18 @@ oder im Stil deiner Lieblingskünstler*in."
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 
 .swbtn {
   width: 102px;
   height: 40px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-radius: 6px;
 }
 
 .active {
   border: 3px solid var(--black, #161617);
-  background: #8BB174;
+  background: #8bb174;
 }
 
 .swwrp {
@@ -158,18 +156,16 @@ oder im Stil deiner Lieblingskünstler*in."
   height: 333px;
   border-radius: 22px;
   border: 4px solid #000;
-  background: #FFF;
+  background: #fff;
   /* Schatten 1 */
   box-shadow: 2px 4px 0px 0px #161617;
 }
 
 #menu {
-
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-
 }
 
 #content {
@@ -186,12 +182,12 @@ oder im Stil deiner Lieblingskünstler*in."
   gap: 20px;
 }
 
-#text{
+#text {
   outline: none;
   resize: none;
   height: 150px;
   text-align: left;
-   color: var(--black, #161617);
+  color: var(--black, #161617);
   font-family: Futura PT;
   font-size: 1.2rem;
   font-style: normal;
@@ -203,21 +199,21 @@ oder im Stil deiner Lieblingskünstler*in."
   box-shadow: 2px 4px 0px 0px #161617;
 }
 
-#buttn{
+#buttn {
   width: 279px;
-height: 74px;
-flex-shrink: 0;
-border-radius: 14px;
-border: 4px solid var(--black, #161617);
-background: #8BB174;
-/* Schatten 1 */
-box-shadow: 2px 4px 0px 0px #161617;
-display: flex;
-align-items: center;
-justify-content: center;
+  height: 74px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 4px solid var(--black, #161617);
+  background: #8bb174;
+  /* Schatten 1 */
+  box-shadow: 2px 4px 0px 0px #161617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#buttn:active{
+#buttn:active {
   box-shadow: 0px 0px 0px 0px #161617;
 }
 </style>

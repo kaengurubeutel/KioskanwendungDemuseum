@@ -23,7 +23,6 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
 #prompts for testing
-prompt = "a wide landscape"
 negative_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality"
 
 #encodes base64 Strings into Pillow Image Objects (helperfunction)
@@ -46,20 +45,17 @@ def get_greeting(string):
 
 #part of the backend, which has the ML logic @Todo: add prompt
 @eel.expose
-def get_image(imageStr):
-    #print (imageStr)
-    print("\n . \n . \n Gib einen Prompt ein: ")
-    prompt = str(input())
+def get_image(imageStr, prompt_, guidance_scale_):
+    prompt = prompt_
     txttmp =GoogleTranslator(source='de', target='en').translate(prompt)
-    print(txttmp)
     img = decode_img(imageStr)
     img = img.resize((750, 400))
-    result = pipe(txttmp, img, num_inference_steps=3, guidance_scale=15.0).images[0]
-    result.show()
-    return
-
-
-
+    result = pipe(txttmp, img, num_inference_steps=1, guidance_scale=guidance_scale_)
+    print(result)
+    if(result.nsfw_content_detected==True): return "error"
+    result.images[0].show()
+    out = base64.encode(result.images[0])
+    return out
 
 #starting the Framework in chromium
 eel.init("web")

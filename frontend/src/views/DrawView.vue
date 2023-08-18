@@ -2,7 +2,10 @@
 import { ref } from 'vue'
 import CusButton from '@/components/CusButton.vue'
 const signaturePad = ref()
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { imagestore } from '@/stores/imagestore'
+
+const imgStore = imagestore();
 
 const route = useRouter()
 
@@ -21,18 +24,16 @@ let clear = () => {
   signaturePad.value.clearSignature()
 }
 
-
 // The `save` function is a callback function that is triggered when the "send" button is clicked.
 let save = () => {
-
   //TODO
   const { isEmpty, data } = signaturePad.value.saveSignature()
   console.log(isEmpty)
   console.log(data)
-  let response = eel.get_image(data)
-  console.log(response)
-  route.push({path: 'prompt'})
-  
+  //let response = eel.get_image(data)
+  imgStore.scribble=data;
+
+  route.push({ path: 'prompt' })
 }
 </script>
 

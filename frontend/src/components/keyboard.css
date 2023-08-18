@@ -1,33 +1,27 @@
-
-
-
 .simple-keyboard.hg-theme-default.myTheme {
   border-radius: 14px;
-border: 4px solid #000;
-background: var(--background, #FEFFF9);
-/* Schatten 1 */
-box-shadow: 2px 4px 0px 0px #161617;
+  border: 4px solid #000;
+  background: var(--background, #fefff9);
+  /* Schatten 1 */
+  box-shadow: 2px 4px 0px 0px #161617;
 }
 
 .simple-keyboard.hg-layout-default .hg-button.hg-red {
   border-radius: 12px;
-border: 3px solid var(--black, #161617);
-background: var(--background, #FEFFF9);
+  border: 3px solid var(--black, #161617);
+  background: var(--background, #fefff9);
 }
 
 .simple-keyboard.hg-layout-default .hg-button.hg-red:active {
- box-shadow: -4px -5px 4px 0px rgba(0, 0, 0, 0.15) inset;
+  box-shadow: -4px -5px 4px 0px rgba(0, 0, 0, 0.15) inset;
 }
 
-
-
 .simple-keyboard.hg-layout-default .hg-button.hg-highlight {
-   border-radius: 12px;
-border: 3px solid var(--black, #161617);
-background: #D9D9D9;
+  border-radius: 12px;
+  border: 3px solid var(--black, #161617);
+  background: #d9d9d9;
 }
 
 .simple-keyboard.hg-layout-default .hg-button.hg-highlight:active {
   box-shadow: -4px -5px 4px 0px rgba(0, 0, 0, 0.15) inset;
 }
-

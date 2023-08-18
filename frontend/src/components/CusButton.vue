@@ -18,7 +18,7 @@ const props = defineProps(['text'])
   background-color: var(--orange);
   border-radius: 0.8125rem;
   border: 2px solid var(--black, #161617);
-  background: #8BB174;
+  background: #8bb174;
   box-shadow: 2px 4px 0px 0px #161617;
 }
 
