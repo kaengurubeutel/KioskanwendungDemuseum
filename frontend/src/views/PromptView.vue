@@ -55,7 +55,12 @@ let next = () => {
   console.log(imgStore.scribble)
   imgStore.promptdata = Object.create(data)
   console.log(imgStore.promptdata)
-  route.push('result')
+  if(imgStore.scribble !== undefined){
+      route.push('result')
+  } else {
+    route.push('start')
+  }
+  
 }
 </script>
 
@@ -64,7 +69,7 @@ let next = () => {
     <div id="content">
       <div id="header">
         <div>
-          <img />
+          
         </div>
         <h2>Was hast du gemalt?</h2>
       </div>
@@ -101,7 +106,7 @@ oder im Stil deiner Lieblingskünstler*in."
           ></textarea>
         </div>
 
-        <img src="" alt="" width="552px" height="333px" id="scribble" />
+        <img :src="imgStore.scribble" alt="" width="552px" height="333px" id="scribble" />
       </div>
 
       <div id="buttn" @click="next"><h3>Bild erstellen</h3></div>

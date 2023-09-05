@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import { ref, onMounted} from 'vue';
+    import { imagestore } from '@/stores/imagestore'
+
+    const imgStore = imagestore();
     const loadingtime = ref(30)
     const timer = (ms) => new Promise((res) => setTimeout(res, ms))
     let bgn = ref(null)
@@ -39,8 +42,8 @@
     <div @mousemove="mousemove" >
         
         <div>
-            <div id="resultimage" ></div>
-            <img src="../assets/Background2.png" alt="" id="bckgrnd2" ref="bgn" />
+            <img :src="imgStore.result" alt="" id="resultimage" >
+            <img :src="imgStore.scribble" alt="" id="bckgrnd2" ref="bgn" />
             <div id="lense" ref="lense">
               <div id="handle"></div>
             </div>
@@ -82,6 +85,7 @@
 
     #resultimage{
         position: relative;
+        z-index: 1;
         width: 1500px;
         height: 800px;
         background-color: aliceblue;
@@ -97,6 +101,7 @@
 
     #bckgrnd2 {
         position: absolute;
+        z-index: 2;
         top: 98px;
         width: 1500px;
         height: 800px;

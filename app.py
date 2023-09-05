@@ -46,16 +46,25 @@ def get_greeting(string):
 #part of the backend, which has the ML logic @Todo: add prompt
 @eel.expose
 def get_image(imageStr, prompt_, guidance_scale_):
-    prompt = prompt_
+    if(prompt_ != None):  prompt = prompt_
+    else: prompt = "ein buntes bild"  
     txttmp =GoogleTranslator(source='de', target='en').translate(prompt)
     img = decode_img(imageStr)
     img = img.resize((750, 400))
-    result = pipe(txttmp, img, num_inference_steps=1, guidance_scale=guidance_scale_)
+    result = pipe(txttmp, img, num_inference_steps=2, guidance_scale=guidance_scale_)
     print(result)
-    if(result.nsfw_content_detected==True): return "error"
-    result.images[0].show()
-    out = base64.encode(result.images[0])
-    return out
+    img = result.images[0]
+    buffered = io.BytesIO()
+    
+    img.save(buffered, format="PNG")
+    buffered.seek(0)
+    img_byte = buffered.getvalue()
+    img_str = "data:image/png;base64," + base64.b64encode(img_byte).decode()
+
+    
+    
+
+    eel.result_callback(result.nsfw_content_detected[0],img_str)
 
 #starting the Framework in chromium
 eel.init("web")

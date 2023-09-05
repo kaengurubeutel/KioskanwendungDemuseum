@@ -8,15 +8,30 @@ import { ref, onMounted } from 'vue';
 const imgStore = imagestore();
 const state = ref(0);
 
-const sendImg =  async () => {
-  let result = await eel.get_image(imgStore.scribble, imgStore.promptdata.prompt, imgStore.promptdata.guidance_scale);
-  console.log(result)
+
+const sendImg =   () => {
+  eel.get_image(imgStore.scribble, imgStore.promptdata.prompt, imgStore.promptdata.guidance_scale);
   return true;
+}
+
+eel.expose(callback, "result_callback")
+function callback(failure:boolean, image){
+  if(!failure){
+    console.log(image)
+    imgStore.result = image;
+    state.value = 2;
+  } else{
+    state.value = 1;
+  }
+
 }
 
 onMounted(()=>{
   sendImg();
 })
+
+
+
 
 </script>
 
@@ -24,7 +39,7 @@ onMounted(()=>{
   <div id="wrapper">
     <LoadingAnim v-if="state===0"></LoadingAnim>
     <FailScreen v-if="state===1"></FailScreen>
-    <ResultView v-if="state===2"></ResultView>
+    <ResultScreen v-if="state===2"></ResultScreen>
    
   </div>
 </template>

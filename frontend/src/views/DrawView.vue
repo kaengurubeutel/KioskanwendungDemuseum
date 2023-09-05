@@ -4,6 +4,8 @@ import CusButton from '@/components/CusButton.vue'
 const signaturePad = ref()
 import { useRouter } from 'vue-router'
 import { imagestore } from '@/stores/imagestore'
+import { onMounted } from 'vue';
+
 
 const imgStore = imagestore();
 
@@ -27,18 +29,24 @@ let clear = () => {
 // The `save` function is a callback function that is triggered when the "send" button is clicked.
 let save = () => {
   //TODO
-  const { isEmpty, data } = signaturePad.value.saveSignature()
-  console.log(isEmpty)
-  console.log(data)
-  //let response = eel.get_image(data)
-  imgStore.scribble=data;
+  if(!signaturePad.value.isEmpty()){
 
-  route.push({ path: 'prompt' })
-}
+ 
+      const { isEmpty, data } = signaturePad.value.saveSignature()
+      console.log(isEmpty)
+      console.log(data)
+      //let response = eel.get_image(data)
+      imgStore.scribble=data;
+
+      route.push({ path: 'prompt' })
+       }
+      }
 </script>
 
 <template>
+ 
   <main>
+      <img src="../assets/hand.png" alt="" id="hand" />
     <div id="background"></div>
     <div id="drwWrp">
       <VueSignaturePad
@@ -49,11 +57,11 @@ let save = () => {
         :options="{ onBegin, onEnd, backgroundColor: '#FFF', minWidth: 1.3, maxWidth: 3.3 }"
       />
     </div>
-
+    
     <div id="menu">
       <CusButton text="undo" @click="undo"></CusButton>
       <CusButton text="delete" @click="clear"></CusButton>
-      <CusButton text="send" @click="save"></CusButton>
+      <CusButton  text="send" @click="save"></CusButton>
     </div>
   </main>
 </template>
@@ -80,6 +88,10 @@ let save = () => {
   box-shadow: 2px 4px 0px 0px #161617;
 }
 
+#hand {
+  z-index: 20;
+  position: absolute;
+}
 #menu {
   position: relative;
   z-index: 3;

@@ -66,7 +66,9 @@ main{
 
 #mainpad {
   position: absolute;
-  z-index: 13;
+  top: 150px;
+  left: 100px;
+  z-index: 15;
   width: 30rem;
   height: 37rem;
   flex-shrink: 0;
@@ -91,9 +93,9 @@ main{
 #bckgrnd1 {
   z-index: 10;
   position: absolute;
-  scale: 79%;
-  top: 96px;
-  right: 120px;
+  scale: 100%;
+  top: 270px;
+  right: 280px;
 }
 
 #bckgrnd2 {

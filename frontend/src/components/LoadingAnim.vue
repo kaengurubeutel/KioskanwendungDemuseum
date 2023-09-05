@@ -13,7 +13,7 @@ const text = ref('')
 // The `load()` function is an asynchronous function that is responsible for updating the `text`
 // variable with different values from the `loadingtextArray` array every 3 seconds.
 async function load() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 30; i++) {
     console.log(i)
     text.value = loadingtextArray[i % 4]
     await timer(3000)
