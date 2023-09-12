@@ -11,7 +11,7 @@ pip i diffusers
 pip i numpy
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip i deep_translator
-cd /frontend
+cd frontend
 npm i
 npm run build-only
 ```
