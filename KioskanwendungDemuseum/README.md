@@ -17,7 +17,7 @@ npm run build-only
 ```
 ### Build front-end
 
-Running the build command will create a folder `/web`. This folder holds build VUE app.
+Running the build command will create a folder `/data`. This folder holds build VUE app.
 
 ```cmd
 cd frontend
@@ -40,7 +40,7 @@ If the eel exposed function in `app.py` are called the same it will work directl
 This will build the front-end and then the app as one `.exe` file.
 
 ```cmd
-cd web-src
+cd frontend
 npm run build
 cd ..
 pip install pyinstaller
