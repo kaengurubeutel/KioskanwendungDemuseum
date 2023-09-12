@@ -6,11 +6,11 @@ It is not unlike electron
 ### Installation
 
 ```cmd
-pip i eel
-pip i diffusers
-pip i numpy
+pip install eel
+pip install diffusers
+pip install numpy
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip i deep_translator
+pip install deep_translator
 cd frontend
 npm i
 npm run build-only
