@@ -1,0 +1,48 @@
+# Kioskanwenung
+
+This is a basic [eel](https://github.com/python-eel/Eel) + [VUE.js 3](https://vuejs.org/) + [VITE](https://vitejs.dev/). It will create a local app with python as backend and VITE+VUE3 as front-end.
+It is not unlike electron
+
+### Installation
+
+```cmd
+pip install eel
+pip install diffusers
+pip install numpy
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install deep_translator
+cd frontend
+npm i
+npm run build-only
+```
+### Build front-end
+
+Running the build command will create a folder `/data`. This folder holds build VUE app.
+
+```cmd
+cd frontend
+npm run build-only
+```
+
+### Develop eel.js
+
+Eel can now be build in the same way as normal.
+
+```cmd
+python app.py
+```
+
+All the mock-up function with `eel.js` are now overwritten by the eel app.
+If the eel exposed function in `app.py` are called the same it will work directly.
+
+### Building the full app
+
+This will build the front-end and then the app as one `.exe` file.
+
+```cmd
+cd frontend
+npm run build
+cd ..
+pip install pyinstaller
+python -m eel app.py data --onefile
+```
